@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-family: ubuntu;
+  background-color: #2e2e2e;
+  color: #d1d1d1;
 }
 
 code {

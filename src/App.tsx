@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import style from "./App.module.scss";
+import { CalendarDatePicker } from "./CalendarDatePicker/CalendarDatePicker";
+
+const slots = [
+    "2023-09-24T08:00:00+04:00",
+    "2023-09-25T08:00:00+04:00",
+    "2023-11-15T08:00:00+04:00",
+    "2023-10-07T10:30:00+04:00",
+    "2023-10-10T10:30:00+04:00",
+    "2023-10-16T10:30:00+04:00",
+    "2023-10-16T12:30:00+04:00",
+    "2023-10-24T08:30:00+04:00",
+    "2023-10-24T09:00:00+04:00",
+    "2023-10-24T17:30:00+04:00",
+    "2023-10-28T00:00:00+04:00",
+    "2023-10-28T00:30:00+04:00",
+    "2023-10-28T10:00:00+04:00",
+    "2023-10-28T23:30:00+04:00",
+    "2023-09-30T14:00:00+04:00",
+    "2023-09-30T17:00:00+04:00",
+    "2023-09-28T08:30:00+04:00",
+    "2023-09-28T09:00:00+04:00",
+    "2023-09-28T09:30:00+04:00",
+    "2023-09-28T17:00:00+04:00",
+    "2023-11-28T17:00:00+04:00",
+    "2023-12-28T17:00:00+04:00",
+    "2024-01-28T17:00:00+04:00",
+    "2026-01-28T17:00:00+04:00",
+];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className={style.container}>
+            <CalendarDatePicker slots={slots} />
+        </div>
+    );
 }
 
 export default App;

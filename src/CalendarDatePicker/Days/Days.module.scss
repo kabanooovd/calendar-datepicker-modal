@@ -1,0 +1,28 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+
+    .weekday {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .day {
+        font-size: 20px;
+        font-weight: 600;
+        padding: 9px 8px;
+        background-color: #eef2ff;
+        border-radius: 10px;
+
+        border: none;
+
+        &:disabled {
+            color: #151515;
+            opacity: 0.2;
+            background-color: transparent;
+        }
+    }
+}
