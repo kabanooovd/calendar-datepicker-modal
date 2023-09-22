@@ -1,0 +1,22 @@
+.container {
+    position: fixed;
+    z-index: 1011;
+    top: 0;
+
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // height: 100vh;
+    // left: 0;
+
+
+    overflow: hidden;
+    flex-direction: row;
+  
+    width: 100vw;
+    height: 100vh;
+  
+    background: #161f294d;
+    backdrop-filter: blur(3px);
+  
+}

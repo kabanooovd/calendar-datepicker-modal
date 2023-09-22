@@ -19,11 +19,11 @@ export const Control = (props: IProps) => {
     return (
         <div className={style.container}>
             <div onClick={onReduce}>
-                {isDisbleadArraise ? null : <>&#10092;</>}
+                {isDisbleadReduce ? null : <>&#10092;</>}
             </div>
             <div>{value}</div>
             <div onClick={onArraise}>
-                {isDisbleadReduce ? null : <>&#10093;</>}
+                {isDisbleadArraise ? null : <>&#10093;</>}
             </div>
         </div>
     );

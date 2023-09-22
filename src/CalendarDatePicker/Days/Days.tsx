@@ -1,17 +1,32 @@
 import { Moment } from "moment";
 import style from "./Days.module.scss";
-import { onGetHandledWeekday } from "../helper";
+import {
+    onCheckDateInSlots,
+    onCheckDaysEquality,
+    onGetHandledWeekday,
+} from "../helper";
+import classNames from "classnames";
 
 interface IProps {
     weekdays: string[];
+    chosenDate: string | null;
     daysList: Moment[];
     prevDaysList: Moment[];
     nextDaysList: Moment[];
     slots: string[];
+    onHandleChosenDate: (date: string) => void;
 }
 
 export const Days = (props: IProps) => {
-    const { weekdays, daysList, nextDaysList, prevDaysList, slots } = props;
+    const {
+        weekdays,
+        daysList,
+        nextDaysList,
+        prevDaysList,
+        slots,
+        onHandleChosenDate,
+        chosenDate,
+    } = props;
 
     const lastDayPrevMonth: Moment = prevDaysList[prevDaysList.length - 1];
     const firstDayNextMonth: Moment = nextDaysList[0];
@@ -29,11 +44,39 @@ export const Days = (props: IProps) => {
     return (
         <div className={style.container}>
             {weekdays.map((title) => (
-                <div key={title} className={style.weekday}>{title.toUpperCase()}</div>
+                <div key={title} className={style.weekday}>
+                    {title.toUpperCase()}
+                </div>
             ))}
             {prevDays}
             {daysList.map((day) => {
-                return <button className={style.day} key={day.format("DD")}>{day.format("DD")}</button>;
+                const isActiveDate = onCheckDateInSlots(day, slots);
+
+                const isChosenDate: boolean = chosenDate
+                    ? onCheckDaysEquality(chosenDate, day.format())
+                    : false;
+
+                const setStyles = () => {
+                    switch (true) {
+                        case isActiveDate && isChosenDate:
+                            return classNames(style.day, style.chosenDay);
+                        case isActiveDate:
+                            return style.day;
+                        default:
+                            return style.day;
+                    }
+                };
+
+                return (
+                    <button
+                        disabled={!isActiveDate}
+                        className={setStyles()}
+                        key={day.format("DD")}
+                        onClick={() => onHandleChosenDate(day.format())}
+                    >
+                        {day.format("DD")}
+                    </button>
+                );
             })}
             {nextDays}
         </div>

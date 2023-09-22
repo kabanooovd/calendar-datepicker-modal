@@ -3,14 +3,23 @@ import style from "./CalendarDatePicker.module.scss";
 import { useState } from "react";
 import { Control } from "./Control/Control";
 import { Days } from "./Days/Days";
-import { onAddZero, onHandleMonth, onGetDaysByMonthAndYear } from "./helper";
+import {
+    onHandleMonth,
+    onGetDaysByMonthAndYear,
+    onGetBaseSlotParams,
+} from "./helper";
+import { Wrapper } from "./Wrapper/Wrapper";
 
 interface IProps {
+    show: boolean;
+    onClose: () => void;
     slots: string[];
+    chosenDate: any | null;
+    onHandleChosenDate: (date: string | null) => void;
 }
 
 export const CalendarDatePicker = (props: IProps) => {
-    const { slots } = props;
+    const { slots, chosenDate, onHandleChosenDate, show, onClose } = props;
 
     moment.updateLocale("ru", {
         weekdaysShort: ["Пн", "Вт", "Ср", "Чт", "Пт", "Вб", "Вс"],
@@ -39,6 +48,8 @@ export const CalendarDatePicker = (props: IProps) => {
 
     const weekdays = moment.weekdaysShort();
 
+    const { maxMonth, minMonth, maxYear, minYear } = onGetBaseSlotParams(slots);
+
     const onReduceYear = () => {
         setYear((prev) => prev - 1);
     };
@@ -60,35 +71,41 @@ export const CalendarDatePicker = (props: IProps) => {
             onArraiseYear();
         }
     };
-
-    const isDisbleadReduce = false
-    const isDisbleadArraise = false
+    const isDisbleadReduce = minMonth === month && minYear === year;
+    const isDisbleadArraise = maxMonth === month && maxYear === year;
 
     return (
-        <div className={style.container}>
-            <div className={style.control}>
-                {/* <Control
+        <Wrapper show={show}>
+            <div className={style.container}>
+                <div className={style.closeBtn} onClick={onClose}>
+                    x
+                </div>
+                <div className={style.control}>
+                    {/* <Control
                     onReduce={onReduceYear}
                     onArraise={onArraiseYear}
                     value={moment(`${year}`, "Y").format("YYYY")}
                 /> */}
-                <Control
-                    onReduce={onReduceMonth}
-                    onArraise={onArraiseMonth}
-                    value={moment(`${month + 1}`, "M").format("MMMM")}
-                    isDisbleadReduce={isDisbleadReduce}
-                    isDisbleadArraise={isDisbleadArraise}
-                />
+                    <Control
+                        onReduce={onReduceMonth}
+                        onArraise={onArraiseMonth}
+                        value={moment(`${month + 1}`, "M").format("MMMM")}
+                        isDisbleadReduce={isDisbleadReduce}
+                        isDisbleadArraise={isDisbleadArraise}
+                    />
+                </div>
+                <div>
+                    <Days
+                        onHandleChosenDate={onHandleChosenDate}
+                        chosenDate={chosenDate}
+                        weekdays={weekdays}
+                        daysList={days}
+                        prevDaysList={prevDaysList}
+                        nextDaysList={nextDaysList}
+                        slots={slots}
+                    />
+                </div>
             </div>
-            <div className={style.days}>
-                <Days
-                    weekdays={weekdays}
-                    daysList={days}
-                    prevDaysList={prevDaysList}
-                    nextDaysList={nextDaysList}
-                    slots={slots}
-                />
-            </div>
-        </div>
+        </Wrapper>
     );
 };

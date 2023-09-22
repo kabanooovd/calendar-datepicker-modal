@@ -1,9 +1,57 @@
 .container {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
     border: 1px solid #e9e9e9;
     color: #3e3e3e;
     padding: 30px;
     border-radius: 16px;
     background: #fff;
-    
+
+    animation: calendarAppearance 0.5s ease 0s 1 normal forwards;
+
     box-shadow: 0px 4px 16px 1px #e9e9e95e;
+
+    .closeBtn {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: -25px;
+        color: #fff;
+    }
+
+    .control {
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: 400px) {
+        & {
+            padding: 20px;
+            .closeBtn {
+                top: 4px;
+                right: 10px;
+                color: #000;
+            }
+        }
+    }
+
+    @media (max-width: 330px) {
+        & {
+            padding: 15px;
+        }
+    }
+}
+
+@keyframes calendarAppearance {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
